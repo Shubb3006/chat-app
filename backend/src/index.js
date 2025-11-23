@@ -36,12 +36,15 @@ app.use("/api/message", messageRoutes); // for api calls about messages it will 
 //     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 //   });
 // }
-if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.join(__dirname, "..", "frontend", "dist");
-  app.use(express.static(frontendPath));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+
+if (process.env.NODE_ENV === "production") {
+  const distPath = path.join(__dirname, "../frontend/dist");
+
+  app.use(express.static(distPath));
+
+  app.use((req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
   });
 }
 
